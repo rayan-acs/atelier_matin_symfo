@@ -19,9 +19,9 @@ class ProjetType extends AbstractType
             ->add('date')
             ->add('description')
             ->add('technos', EntityType::class, [
-                'class' => Techno::class,
-                'expanded'=> true,
-                'multiple' => true
+                'class'=> Techno::class,
+                'multiple'=> true,
+                'expanded' => true
             ])
             ->add('Ajouter', SubmitType::class)
         ;

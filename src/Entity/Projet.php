@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjetRepository")
  */
-class Projet 
+class Projet
 {
     /**
      * @ORM\Id()
@@ -24,7 +24,7 @@ class Projet
     private $name;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $date;
 
@@ -34,7 +34,7 @@ class Projet
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Techno", mappedBy="projets")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Techno", inversedBy="projets")
      */
     private $technos;
 
@@ -60,12 +60,12 @@ class Projet
         return $this;
     }
 
-    public function getDate(): ?\DateTime
+    public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTime $date): self
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
 
@@ -96,7 +96,6 @@ class Projet
     {
         if (!$this->technos->contains($techno)) {
             $this->technos[] = $techno;
-            $techno->addProjet($this);
         }
 
         return $this;
@@ -106,7 +105,6 @@ class Projet
     {
         if ($this->technos->contains($techno)) {
             $this->technos->removeElement($techno);
-            $techno->removeProjet($this);
         }
 
         return $this;

@@ -24,7 +24,7 @@ class Techno
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Projet", inversedBy="technos")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Projet", mappedBy="technos")
      */
     private $projets;
 
@@ -62,6 +62,7 @@ class Techno
     {
         if (!$this->projets->contains($projet)) {
             $this->projets[] = $projet;
+            $projet->addTechno($this);
         }
 
         return $this;
@@ -71,6 +72,7 @@ class Techno
     {
         if ($this->projets->contains($projet)) {
             $this->projets->removeElement($projet);
+            $projet->removeTechno($this);
         }
 
         return $this;
